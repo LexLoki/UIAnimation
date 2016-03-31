@@ -52,4 +52,5 @@ let rep = UIAnimation.repeatAnimationForever(seq) // Makes the sequence above re
 v.runAnimation(rep) // Executes the animation
 ```
 This produces the animation below:
+
 ![alt tag](https://cloud.githubusercontent.com/assets/9408934/14170897/684dd170-f706-11e5-97d9-240e5f9f19fb.gif)
