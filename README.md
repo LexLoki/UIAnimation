@@ -15,6 +15,10 @@ Similarly to SpriteKit's 'SKAction' of SKNode, UIAnimation represents an action 
 * `class func repeatAnimationForever(animation : UIAnimation) -> UIAnimation`
 * `class func runBlock(block : ()->Void) -> UIAnimation`
 * `class func waitForDuration(duration : NSTimeInterval) -> UIAnimation`
+* `class func fadeAlphaTo(alpha : CGFloat, duration : NSTimeInterval) -> UIAnimation`
+* `class func fadeAlphaBy(alpha : CGFloat, duration : NSTimeInterval) -> UIAnimation`
+* `class func fadeInWithDuration(duration : NSTimeInterval) -> UIAnimation`
+* `class func fadeOutWithDuration(duration : NSTimeInterval) -> UIAnimation`
 
 #### UIView
 * `func runAnimation(animation : UIAnimation)`
