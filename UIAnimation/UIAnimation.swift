@@ -30,7 +30,6 @@ extension UIView{
     }
     /// Not implemented
     func removeAnimationForKey(key : String){
-        
     }
 }
 /**
@@ -84,6 +83,44 @@ class UIAnimation{
      */
     class func rotateBy(angle : CGFloat, duration : NSTimeInterval) -> UIAnimation{
         return UIAnimation(data: NSDictionary(objects: [angle,true], forKeys: ["angle","isBy"]), duration, _handleRotation)
+    }
+    
+    /**
+     * Creates an action that adjusts the alpha value of a view by a relative value
+     *
+     * - Parameter alpha: A 'CGFloat' value specifying the ammount to add to a view's alpha value
+     * - Parameter duration: A 'NSTimerInverval' specifying the duration of the rotation
+     */
+    class func fadeAlphaBy(alpha : CGFloat, duration : NSTimeInterval) -> UIAnimation{
+        return UIAnimation(data: NSDictionary(objects: [alpha,true], forKeys: ["alpha","isBy"]), duration, _handleAlpha)
+    }
+    
+    /**
+     * Creates an action that adjusts the alpha value of a view to a given value
+     *
+     * - Parameter alpha: A 'CGFloat' value specifying the new value of the view's alpha
+     * - Parameter duration: A 'NSTimerInverval' specifying the duration of the rotation
+     */
+    class func fadeAlphaTo(alpha : CGFloat, duration : NSTimeInterval) -> UIAnimation{
+        return UIAnimation(data: NSDictionary(objects: [alpha,false], forKeys: ["alpha","isBy"]), duration, _handleAlpha)
+    }
+    
+    /**
+     * Creates an action that changes a view's alpha value to 1.0
+     *
+     * - Parameter duration: A 'NSTimerInverval' specifying the duration of the rotation
+     */
+    class func fadeInWithDuration(duration : NSTimeInterval) -> UIAnimation{
+        return fadeAlphaTo(1, duration: duration)
+    }
+    
+    /**
+     * Creates an action that changes a view's alpha value to 0.0
+     *
+     * - Parameter duration: A 'NSTimerInverval' specifying the duration of the rotation
+     */
+    class func fadeOutWithDuration(duration : NSTimeInterval) -> UIAnimation{
+        return fadeAlphaTo(0, duration: duration)
     }
     
     /**
@@ -191,6 +228,18 @@ class UIAnimation{
         let a = (anim.data["angle"] as! CGFloat) / 180.0 * CGFloat(M_PI)
         UIView.animateWithDuration(anim.time, animations: { () -> Void in
             view.transform = (anim.data["isBy"] as! Bool) ? CGAffineTransformRotate(view.transform, a) : CGAffineTransformMakeRotation(a)
+            }) { (v) -> Void in
+                if v{ comp?() }
+        }
+    }
+    
+    class private func _handleAlpha(view : UIView, _ anim : UIAnimation, _ comp: (()->Void)?){
+        var a = anim.data["alpha"] as! CGFloat
+        if anim.data["isBy"] as! Bool{
+            a += view.alpha
+        }
+        UIView.animateWithDuration(anim.time, animations: { () -> Void in
+            view.alpha = a
             }) { (v) -> Void in
                 if v{ comp?() }
         }

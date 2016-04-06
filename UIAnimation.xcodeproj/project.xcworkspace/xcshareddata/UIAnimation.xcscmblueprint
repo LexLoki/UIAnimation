@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "0091E5759EFBBD73BE4AF88ED3A01D198E037827",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "5BB93ED50FA2CD74FA78A3D1580B6138B4BD01A7" : 0,
+    "0091E5759EFBBD73BE4AF88ED3A01D198E037827" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "74B01378-0895-4C35-BCCC-464ED5D469A0",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "5BB93ED50FA2CD74FA78A3D1580B6138B4BD01A7" : "",
+    "0091E5759EFBBD73BE4AF88ED3A01D198E037827" : "UIAnimationGit\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "UIAnimation",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "UIAnimation.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/LexLoki\/UIAnimation",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0091E5759EFBBD73BE4AF88ED3A01D198E037827"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/LexLoki\/GuanabaraStageBuilder",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5BB93ED50FA2CD74FA78A3D1580B6138B4BD01A7"
+    }
+  ]
+}
