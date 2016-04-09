@@ -188,6 +188,20 @@ class UIAnimation{
         return UIAnimation(data: NSDictionary(), duration, _handleWait)
     }
     
+    /**
+    * Creates an action that moves a view to collection of points, sequentially
+    *
+    * - Parameter points: The collection of points the view should move to
+    * - Parameter speed: The absolute speed of the view's movement
+    */
+    class func followPoints(points : [CGPoint], withSpeed speed : CGFloat) -> UIAnimation{
+        var v = [NSValue]()
+        for p in points{
+            v.append(NSValue(CGPoint: p))
+        }
+        return UIAnimation(data: NSDictionary(objects: [speed,v], forKeys: ["speed","points"]), 0, _handlePath)
+    }
+    
     private class BlockWrapper{
         let block: ()->Void
         init(_ block: ()->Void){
@@ -222,6 +236,10 @@ class UIAnimation{
             }) { (v) -> Void in
                 if v{ comp?() }
         }
+    }
+    
+    class private func _handlePath(view : UIView, _ anim : UIAnimation, _ comp: (()->Void)?){
+        _runPath(view, anim.data["speed"] as! CGFloat, anim.data["points"] as! [NSValue], 0, comp)
     }
     
     class private func _handleRotation(view : UIView, _ anim : UIAnimation, _ comp: (()->Void)?){
@@ -282,6 +300,16 @@ class UIAnimation{
             }
             else{ completion?() }
         })
+    }
+    
+    class private func _runPath(view : UIView, _ speed : CGFloat, _ points : [NSValue], var _ i : Int, _ completion : (()->Void)?){
+        let curr = points[i].CGPointValue()
+        view.runAnimation(UIAnimation.moveTo(curr, duration: NSTimeInterval(speed/sqrt(pow(curr.x-view.center.x, 2)+pow(curr.y-view.center.y, 2))))) { () -> Void in
+            if (++i)<points.count{
+                _runPath(view, speed, points, i, completion)
+            }
+            else{ completion?() }
+        }
     }
     
     class private func _repetition(view : UIView, _ anim : UIAnimation, var _ rep : Int, _ completion : (()->Void)?){
