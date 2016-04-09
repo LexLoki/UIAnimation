@@ -29,10 +29,10 @@ Similarly to SpriteKit's 'SKAction' of SKNode, UIAnimation represents an action 
 ## How to use + Examples
 Consider this simple example: we want to move myView (an UIView) to the origin point, and we want the movement to last 3 seconds:
 ```
-let action = UIAnimation.moveTo(CGPointZero, duration: 1)
+let action = UIAnimation.moveTo(CGPointZero, duration: 3)
 myView.runAnimation(action)
 //or just
-myView.runAnimation(UIAnimation.moveTo(CGPointZero, duration: 1))
+myView.runAnimation(UIAnimation.moveTo(CGPointZero, duration: 3))
 ```
 A more complete example would be the one present here, in the 'ViewController' file:
 ```
