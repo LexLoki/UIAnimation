@@ -20,6 +20,7 @@ Similarly to SpriteKit's 'SKAction' of SKNode, UIAnimation represents an action 
 * `class func fadeInWithDuration(duration : NSTimeInterval) -> UIAnimation`
 * `class func fadeOutWithDuration(duration : NSTimeInterval) -> UIAnimation`
 * `class func followPoints(points : [CGPoint], withSpeed speed : CGFloat) -> UIAnimation`
+* `class func shake(force : CGPoint, frequence : CGFloat, duration : NSTimeInterval) -> UIAnimation`
 
 #### UIView
 * `func runAnimation(animation : UIAnimation)`
