@@ -42,6 +42,9 @@ extension UIView{
  * - Repeat
  * - RunBlock
  * - WaitTime
+ * - Fades
+ * - FollowPoints
+ * - Shake
 */
 class UIAnimation{
     
@@ -202,6 +205,18 @@ class UIAnimation{
         return UIAnimation(data: NSDictionary(objects: [speed,v], forKeys: ["speed","points"]), 0, _handlePath)
     }
     
+    /**
+     * Creates an action that shakes a view random positions, based on the given frequence and force
+     *
+     * - Parameter force: A 'CGPPoint' specifying the distance the view will move, from its center position, when shaking
+     * - Parameter frequence: A 'CGFloat' specifying how many shakes per second the view should do
+     * - Parameter duration: A 'NSTimeInterval' specifying the estimated total duration of the shake animation (might differ a little)
+     */
+    class func shake(force : CGPoint, frequence : CGFloat, duration : NSTimeInterval) -> UIAnimation{
+        let eachDuration = NSTimeInterval(1.0/frequence)
+        return UIAnimation(data: NSDictionary(objects: [eachDuration,Int(duration/eachDuration),NSValue(CGPoint: force)], forKeys: ["eachTime","quant","force"]), duration, _handleShake)
+    }
+    
     private class BlockWrapper{
         let block: ()->Void
         init(_ block: ()->Void){
@@ -289,6 +304,21 @@ class UIAnimation{
     class private func _handleWait(view : UIView, _ anim : UIAnimation, _ comp: (()->Void)?){
         UIView.animateWithDuration(anim.time, animations: {}) { (v) -> Void in
             if v{ comp?() }
+        }
+    }
+    
+    class private func _handleShake(view : UIView, _ anim : UIAnimation, _ comp: (()->Void)?){
+        let q = anim.data["quant"] as! Int
+        let f = (anim.data["force"] as! NSValue).CGPointValue()
+        let e = anim.data["eachTime"] as! NSTimeInterval
+        var actions = [UIAnimation]()
+        for var i=0;i<q;i++ {
+            let a = CGFloat(arc4random()) / CGFloat(UINT32_MAX) * CGFloat(2*M_PI)
+            actions.append(UIAnimation.moveTo(CGPointMake(view.center.x+cos(a)*f.x,view.center.y+sin(a)*f.y), duration: e))
+        }
+        actions.append(UIAnimation.moveTo(view.center, duration: 0))
+        view.runAnimation(UIAnimation.sequence(actions)) { () -> Void in
+            comp?()
         }
     }
     
