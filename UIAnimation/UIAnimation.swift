@@ -46,7 +46,7 @@ extension UIView{
  * - FollowPoints
  * - Shake
 */
-class UIAnimation{
+class UIAnimation : NSObject{
     
     /**
      * Creates an action that moves an UIView's center point to a given point
@@ -223,6 +223,11 @@ class UIAnimation{
             self.block = block
         }
     }
+    class PrivateTimer : NSObject{
+        class func runTimer(timer : NSTimer){
+            (timer.userInfo as! BlockWrapper).block()
+        }
+    }
     
     /// Duration of the animation
     private let time : NSTimeInterval
@@ -302,9 +307,13 @@ class UIAnimation{
     }
     
     class private func _handleWait(view : UIView, _ anim : UIAnimation, _ comp: (()->Void)?){
-        UIView.animateWithDuration(anim.time, animations: {}) { (v) -> Void in
-            if v{ comp?() }
+        if let c = comp{
+            NSTimer.scheduledTimerWithTimeInterval(anim.time, target: UIAnimation.PrivateTimer.self, selector: "runTimer:", userInfo: BlockWrapper(c), repeats: false)
         }
+    }
+    
+    class func runTimer(timer : NSTimer){
+        (timer.userInfo as! BlockWrapper).block()
     }
     
     class private func _handleShake(view : UIView, _ anim : UIAnimation, _ comp: (()->Void)?){

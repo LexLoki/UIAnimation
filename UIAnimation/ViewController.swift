@@ -33,7 +33,6 @@ class ViewController: UIViewController {
         let rot1 = UIAnimation.rotateBy(90, duration: 0.6) // Rotates 90 degrees clockwise
         let rot2 = UIAnimation.rotateBy(-90, duration: 0.6) // Rotates 90 degrees anti-clockwise
         
-        
         let seq = UIAnimation.sequence([anim,rot1,anim2,rot2]) // Executes, in the order, the actions given
         let rep = UIAnimation.repeatAnimationForever(seq) // Makes the sequence above repeats forever
         
