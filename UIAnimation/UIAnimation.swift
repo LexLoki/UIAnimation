@@ -312,10 +312,6 @@ class UIAnimation : NSObject{
         }
     }
     
-    class func runTimer(timer : NSTimer){
-        (timer.userInfo as! BlockWrapper).block()
-    }
-    
     class private func _handleShake(view : UIView, _ anim : UIAnimation, _ comp: (()->Void)?){
         let q = anim.data["quant"] as! Int
         let f = (anim.data["force"] as! NSValue).CGPointValue()
