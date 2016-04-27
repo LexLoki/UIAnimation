@@ -7,6 +7,8 @@ Similarly to SpriteKit's 'SKAction' of SKNode, UIAnimation represents an action 
 #### UIAnimation
 * `class func moveTo(point : CGPoint, duration : NSTimeInterval) -> UIAnimation`
 * `class func moveBy(point : CGPoint, duration : NSTimeInterval) -> UIAnimation`
+* `class func scaleBy(scale : CGPoint, duration : NSTimeInterval) -> UIAnimation`
+* `class func scaleBy(scale : CGFloat, duration : NSTimeInterval) -> UIAnimation`
 * `class func rotateTo(angle : CGFloat, duration : NSTimeInterval) -> UIAnimation`
 * `class func rotateBy(angle : CGFloat, duration : NSTimeInterval) -> UIAnimation`
 * `class func sequence(animations : [UIAnimation]) -> UIAnimation`
