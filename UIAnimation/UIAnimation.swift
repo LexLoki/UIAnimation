@@ -217,6 +217,16 @@ class UIAnimation : NSObject{
         return UIAnimation(data: NSDictionary(objects: [eachDuration,Int(duration/eachDuration),NSValue(CGPoint: force)], forKeys: ["eachTime","quant","force"]), duration, _handleShake)
     }
     
+    /**
+     * Creates an aciton that removes a view from its superview
+    */
+    class func removeFromSuperview() -> UIAnimation{
+        return UIAnimation(data: [:], 0, { (v, _, comp) -> Void in
+            v.removeFromSuperview()
+            comp?()
+        })
+    }
+    
     private class BlockWrapper{
         let block: ()->Void
         init(_ block: ()->Void){
