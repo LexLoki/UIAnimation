@@ -302,7 +302,8 @@ class UIAnimation : NSObject{
         var n_comp = 0
         for a in anims{
             a.handler(view,a,{ () -> Void in
-                if(++n_comp == anims.count){
+                n_comp += 1
+                if(n_comp == anims.count){
                     comp?()
                 }})}
     }
@@ -318,7 +319,7 @@ class UIAnimation : NSObject{
     
     class private func _handleWait(view : UIView, _ anim : UIAnimation, _ comp: (()->Void)?){
         if let c = comp{
-            NSTimer.scheduledTimerWithTimeInterval(anim.time, target: UIAnimation.PrivateTimer.self, selector: "runTimer:", userInfo: BlockWrapper(c), repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(anim.time, target: UIAnimation.PrivateTimer.self, selector: #selector(PrivateTimer.runTimer(_:)), userInfo: BlockWrapper(c), repeats: false)
         }
     }
     
@@ -327,7 +328,7 @@ class UIAnimation : NSObject{
         let f = (anim.data["force"] as! NSValue).CGPointValue()
         let e = anim.data["eachTime"] as! NSTimeInterval
         var actions = [UIAnimation]()
-        for var i=0;i<q;i++ {
+        for _ in 0 ..< q {
             let a = CGFloat(arc4random()) / CGFloat(UINT32_MAX) * CGFloat(2*M_PI)
             actions.append(UIAnimation.moveTo(CGPointMake(view.center.x+cos(a)*f.x,view.center.y+sin(a)*f.y), duration: e))
         }
@@ -337,29 +338,35 @@ class UIAnimation : NSObject{
         }
     }
     
-    class private func _run(view : UIView, _ anim : [UIAnimation], var _ i : Int, _ completion : (()->Void)?){
+    class private func _run(view : UIView, _ anim : [UIAnimation], _ _i : Int, _ completion : (()->Void)?){
+        var i = _i
         let curr = anim[i]
         curr.handler(view,curr,{ () -> Void in
-            if (++i)<anim.count{
+            i += 1
+            if (i)<anim.count{
                 _run(view, anim, i, completion)
             }
             else{ completion?() }
         })
     }
     
-    class private func _runPath(view : UIView, _ speed : CGFloat, _ points : [NSValue], var _ i : Int, _ completion : (()->Void)?){
+    class private func _runPath(view : UIView, _ speed : CGFloat, _ points : [NSValue], _ _i : Int, _ completion : (()->Void)?){
+        var i = _i
         let curr = points[i].CGPointValue()
         view.runAnimation(UIAnimation.moveTo(curr, duration: NSTimeInterval(speed/sqrt(pow(curr.x-view.center.x, 2)+pow(curr.y-view.center.y, 2))))) { () -> Void in
-            if (++i)<points.count{
+            i += 1
+            if i<points.count{
                 _runPath(view, speed, points, i, completion)
             }
             else{ completion?() }
         }
     }
     
-    class private func _repetition(view : UIView, _ anim : UIAnimation, var _ rep : Int, _ completion : (()->Void)?){
+    class private func _repetition(view : UIView, _ anim : UIAnimation, _ _rep : Int, _ completion : (()->Void)?){
+        var rep = _rep
         anim.handler(view,anim,{ () -> Void in
-            if (rep <= -1 || --rep>0){
+            rep -= 1
+            if (rep <= -1 || rep>0){
                 _repetition(view, anim, rep, completion)
             }
             else{ completion?() }
