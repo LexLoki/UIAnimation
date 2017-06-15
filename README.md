@@ -33,31 +33,31 @@ Similarly to SpriteKit's 'SKAction' of SKNode, UIAnimation represents an action 
 ## How to use + Examples
 Consider this simple example: we want to move myView (an UIView) to the origin point, and we want the movement to last 3 seconds:
 ```swift
-let action = UIAnimation.moveTo(CGPointZero, duration: 3)
+let action = UIAnimation.moveTo(point: CGPoint.zero, duration: 3)
 myView.runAnimation(action)
 //or just
-myView.runAnimation(UIAnimation.moveTo(CGPointZero, duration: 3))
+myView.runAnimation(UIAnimation.moveTo(point: CGPoint.zero, duration: 3))
 ```
 A more complete example would be the one present here, in the 'ViewController' file:
 ```swift
 let v = UIView()
-v.backgroundColor = UIColor.redColor()
+v.backgroundColor = UIColor.red
 v.center = view.center
-v.frame.size = CGSizeMake(view.frame.width/3, view.frame.width/3)
+v.frame.size = CGSize(width: view.frame.width/3, height: view.frame.width/3)
 view.addSubview(v)
-        
-let point1 = CGPointMake(v.frame.width*1.5/2, view.frame.height/2)
-let point2 = CGPointMake(view.frame.width-point1.x, point1.y)
-        
-        
-let anim = UIAnimation.moveTo(point1, duration: 1) // This action moves to point1
-let anim2 = UIAnimation.moveTo(point2, duration: 1) // This action moves to point2
-        
-let rot1 = UIAnimation.rotateBy(90, duration: 0.6) // Rotates 90 degrees clockwise
-let rot2 = UIAnimation.rotateBy(-90, duration: 0.6) // Rotates 90 degrees anti-clockwise
-        
-let seq = UIAnimation.sequence([anim,rot1,anim2,rot2]) // Executes, sequentially, the given actions
-let rep = UIAnimation.repeatAnimationForever(seq) // Makes the sequence above repeats forever
+
+let point1 = CGPoint(x: v.frame.width*1.5/2, y: view.frame.height/2)
+let point2 = CGPoint(x: view.frame.width-point1.x, y: point1.y)
+
+
+let anim = UIAnimation.moveTo(point: point1, duration: 1) // This action moves to point1
+let anim2 = UIAnimation.moveTo(point: point2, duration: 1) // This action moves to point2
+
+let rot1 = UIAnimation.rotateBy(angle: 90, duration: 0.6) // Rotates 90 degrees clockwise
+let rot2 = UIAnimation.rotateBy(angle: -90, duration: 0.6) // Rotates 90 degrees anti-clockwise
+
+let seq = UIAnimation.sequence(animations: [anim,rot1,anim2,rot2]) // Executes, sequentially, the given actions
+let rep = UIAnimation.repeatAnimationForever(animation: seq) // Makes the sequence above repeats forever
 v.runAnimation(rep) // Executes the animation
 ```
 This produces the animation below:
