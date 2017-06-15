@@ -1,7 +1,7 @@
 # UIAnimation
 This class provides easy implementation of animations with UIView components
 
-Similarly to SpriteKit's 'SKAction' of SKNode, UIAnimation represents an action that can be run on a 'UIView'. With it you can move, rotate, and create sequences of actions and blocks. It is possible to store an animation to reuse it with multiple views.
+Similarly to `SpriteKit`'s `SKAction` of `SKNode`, `UIAnimation` represents an action that can be run on a `UIView`. With it you can move, rotate, and create sequences of actions and blocks. It is possible to store an animation and reuse them with multiple views.
 
 ## Methods
 #### UIAnimation
