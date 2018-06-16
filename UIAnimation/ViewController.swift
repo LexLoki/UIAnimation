@@ -14,31 +14,27 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         let v = UIView()
-        v.backgroundColor = UIColor.redColor()
+        v.backgroundColor = UIColor.red
         v.center = view.center
-        v.frame.size = CGSizeMake(view.frame.width/3, view.frame.width/3)
+        v.frame.size = CGSize(width:view.frame.width/3, height:view.frame.width/3)
         view.addSubview(v)
         
-        let point1 = CGPointMake(v.frame.width*1.5/2, view.frame.height/2)
-        let point2 = CGPointMake(view.frame.width-point1.x, point1.y)
+        let point1 = CGPoint(x: v.frame.width*1.5/2, y: view.frame.height/2)
+        let point2 = CGPoint(x: view.frame.width-point1.x, y: point1.y)
         
         
-        let anim = UIAnimation.moveTo(point1, duration: 1) // This action moves to point1
-        let anim2 = UIAnimation.moveTo(point2, duration: 1) // This action moves to point2
+        let anim = UIAnimation.moveTo(point: point1, duration: 1) // This action moves to point1
+        let anim2 = UIAnimation.moveTo(point: point2, duration: 1) // This action moves to point2
         
-        let rot1 = UIAnimation.rotateBy(90, duration: 0.6) // Rotates 90 degrees clockwise
-        let rot2 = UIAnimation.rotateBy(-90, duration: 0.6) // Rotates 90 degrees anti-clockwise
+        let rot1 = UIAnimation.rotateBy(angle: 90, duration: 0.6) // Rotates 90 degrees clockwise
+        let rot2 = UIAnimation.rotateBy(angle: -90, duration: 0.6) // Rotates 90 degrees anti-clockwise
         
-        let shake = UIAnimation.shake(CGPointMake(10, 10), frequence: 40, duration: 1)
-        
-        let sA = UIAnimation.group([shake,anim2])
-        
-        let seq = UIAnimation.sequence([anim,rot1,sA,rot2]) // Executes, in the order, the actions given
-        let rep = UIAnimation.repeatAnimationForever(seq) // Makes the sequence above repeats forever
+        let seq = UIAnimation.sequence(animations: [anim,rot1,anim2,rot2]) // Executes, in the order, the actions given
+        let rep = UIAnimation.repeatAnimationForever(animation: seq) // Makes the sequence above repeats forever
         
         v.runAnimation(rep) // Executes the animation
     }
