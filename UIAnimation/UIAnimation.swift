@@ -235,7 +235,7 @@ class UIAnimation : NSObject{
     }
     
     class PrivateTimer : NSObject{
-        class func runTimer(timer : Timer){
+        @objc class func runTimer(timer : Timer){
             (timer.userInfo as! BlockWrapper).block()
         }
     }
